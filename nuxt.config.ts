@@ -5,12 +5,16 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
-    "@pinia-plugin-persistedstate/nuxt"
+    "@pinia-plugin-persistedstate/nuxt",
+    "@nuxtjs/color-mode",
   ],
   pinia:{
     storesDirs: [
       './stores/**'
     ]
+  },
+  colorMode:{
+    classSuffix:''
   },
   sourcemap:false
 })
