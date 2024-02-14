@@ -1,5 +1,5 @@
 <template>
-  <div id="chart">
+  <div id="chart1">
     <ClientOnly>
       <apexchart
         :key="series"
@@ -12,14 +12,13 @@
   </div>
 </template>
 <script setup lang="ts">
-onMounted (()=>{})
-const colorMode = useColorMode()
+
 const options = ref({
   chart: {
     id: "chart1",
     type: "area",
     height: 230,
-    foreColor: colorMode.preference == 'dark' ? "#ccc" : "#000",
+    foreColor: '#8f95a1',
     toolbar: {
       autoSelected: "pan",
       show: false

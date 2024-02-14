@@ -1,5 +1,5 @@
 <template>
-  <div id="chart">
+  <div id="chart2">
     <ClientOnly>
       <apexchart
         :key="series"
@@ -12,21 +12,21 @@
   </div>
 </template>
 <script setup lang="ts">
-const colorMode = useColorMode()
+
 const options = ref({
   chart: {
     id: "chart1",
     type: "area",
     height: 230,
-    foreColor: colorMode.preference == 'dark' ? "#ccc" : "#000",
+    foreColor: "#8f95a1",
     toolbar: {
       autoSelected: "pan",
-      show: false
-    }
+      show: false,
+    },
   },
   colors: ["#FB4444"],
   stroke: {
-    width: 3
+    width: 3,
   },
   dataLabels: {
     enabled: false,
@@ -35,14 +35,14 @@ const options = ref({
     gradient: {
       enabled: true,
       opacityFrom: 0.85,
-      opacityTo: 0.5
-    }
+      opacityTo: 0.5,
+    },
   },
   markers: {
     size: 5,
     colors: ["#000524"],
     strokeColor: "#FF0000",
-    strokeWidth: 3
+    strokeWidth: 3,
   },
   xaxis: {
     type: "datetime",
@@ -59,8 +59,8 @@ const options = ref({
   yaxis: {
     opposite: false,
   },
-  grid:{
-    show:false
+  grid: {
+    show: false,
   },
   legend: {
     horizontalAlign: "left",
@@ -77,4 +77,5 @@ const series = ref([
     data: [31, 40, 28, 51, 42, 109, 100],
   },
 ]);
+
 </script>
