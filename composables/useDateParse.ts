@@ -1,3 +1,4 @@
+//function to parse date
 export const useDateParse = (date: string) => {
   const parse = new Date(date).toLocaleDateString('en-GB', {
     day: 'numeric',
