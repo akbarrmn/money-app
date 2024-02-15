@@ -2,13 +2,21 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/tailwind.css"],
+  app: {
+    head: {
+      title: "Money App",
+      meta: [{ name: "description", content: "Money management app" }],
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    },
+  }
+  ,
   modules: [
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/color-mode",
     "shadcn-nuxt",
-    "@vee-validate/nuxt"
+    "@vee-validate/nuxt",
   ],
   pinia:{
     storesDirs: [
