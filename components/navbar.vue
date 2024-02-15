@@ -13,9 +13,8 @@
         <NuxtLink to="/plan" v-bind:class="{'text-[#4D72F6]': route.path === '/plan', 'text-black dark:text-white': route.path !== '/plan'}">Planning </NuxtLink>
       </div>
     </div>
-    <button class="lg:hidden h-10 w-10 flex p-1 justify-center items-center rounded-full outline-[#B4B8B9]/30 hover:bg-gray-400/50 ">
-      <Menu class="w-full h-full" />
-    </button>
+    
+    <LazyDropdownCustom/>
     <div class="hidden lg:flex gap-4 items-center">
       <button
         @click="
