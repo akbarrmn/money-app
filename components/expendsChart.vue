@@ -12,7 +12,26 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { Reports } from '~/utils/types/report.types';
 
+
+// setup stores
+const reportStore = useMyReportsStore();
+
+//create computed data for chart to get the amount of expends
+const expendsReports = computed(() => {
+  return reportStore.reports.filter((report: Reports) => report.transaction_type === false).map(report => report.transaction_amount);
+});
+
+//create computed data for chart to get the date and sort it
+const dateReports = computed(() => {
+  return reportStore.reports.filter((report: Reports) => report.transaction_type === false).map(report => report.createdAt)
+});
+const sortedDateReports = computed(() => {
+  return dateReports.value.sort((a: Date, b: Date) => new Date(a).getTime() - new Date(b).getTime());
+});
+
+// create chart options
 const options = ref({
   chart: {
     id: "chart1",
@@ -46,15 +65,7 @@ const options = ref({
   },
   xaxis: {
     type: "datetime",
-    categories: [
-      "2018-09-19T00:00:00.000Z",
-      "2018-09-19T01:30:00.000Z",
-      "2018-09-19T02:30:00.000Z",
-      "2018-09-19T03:30:00.000Z",
-      "2018-09-19T04:30:00.000Z",
-      "2018-09-19T05:30:00.000Z",
-      "2018-09-19T06:30:00.000Z",
-    ],
+    categories: sortedDateReports,
   },
   yaxis: {
     opposite: false,
@@ -66,15 +77,21 @@ const options = ref({
     horizontalAlign: "left",
   },
   tooltip: {
+    enabled:true,
+    style: {
+      fontSize: "12px",
+      color: '#000000'
+    },
     x: {
       format: "dd/MM/yy HH:mm",
     },
+    theme:'dark'
   },
 });
 const series = ref([
   {
-    name: "series",
-    data: [31, 40, 28, 51, 42, 109, 100],
+    name: "expends",
+    data: expendsReports,
   },
 ]);
 
