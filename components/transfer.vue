@@ -114,26 +114,22 @@
         <img
           src="~/assets/images/user.png"
           alt="image"
-          width="60"
-          class="rounded-full border-2 border-[#B4B8B9]/30"
+          class="rounded-full border-2 border-[#B4B8B9]/30 w-12 h-12 md:w-16 md:h-16 "
         />
         <img
           src="~/assets/images/user.png"
           alt="image"
-          width="60"
-          class="rounded-full border-2 border-[#B4B8B9]/30"
+          class="rounded-full border-2 border-[#B4B8B9]/30 w-12 h-12 md:w-16 md:h-16"
         />
         <img
           src="~/assets/images/user.png"
           alt="image"
-          width="60"
-          class="rounded-full border-2 border-[#B4B8B9]/30"
+          class="rounded-full border-2 border-[#B4B8B9]/30 w-12 h-12 md:w-16 md:h-16"
         />
         <img
           src="~/assets/images/user.png"
           alt="image"
-          width="60"
-          class="rounded-full border-2 border-[#B4B8B9]/30"
+          class="rounded-full border-2 border-[#B4B8B9]/30  w-12 h-12 md:w-16 md:h-16"
         />
       </div>
     </div>
