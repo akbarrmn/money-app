@@ -1,19 +1,22 @@
 <template>
-  <nav class="container flex justify-between py-4 w-full mx-auto">
+  <nav class="container flex justify-between py-4 w-full items-center mx-auto">
     <div class="flex gap-8 items-center">
       <div class="flex gap-4 items-center">
-        <img src="~/assets/images/Logo.png" alt="logo" width="40" />
+        <img src="~/assets/images/Logo.png" alt="logo" width="50" />
         <h1 class="text-black dark:text-white">Money App</h1>
       </div>
       <div class="hidden lg:flex gap-5">
-        <NuxtLink to="#" class="text-[#4D72F6] dark:text-white"
+        <NuxtLink to="/" v-bind:class="{'text-[#4D72F6]': route.path === '/', 'text-black dark:text-white': route.path !== '/'}"
           >Overview</NuxtLink
         >
-        <NuxtLink to="#" class="text-black dark:text-white">Reports</NuxtLink>
-        <NuxtLink to="#" class="text-black dark:text-white">Planning </NuxtLink>
+        <NuxtLink to="/report" v-bind:class="{'text-[#4D72F6]': route.path === '/report', 'text-black dark:text-white': route.path !== '/report'}">Reports</NuxtLink>
+        <NuxtLink to="/plan" v-bind:class="{'text-[#4D72F6]': route.path === '/plan', 'text-black dark:text-white': route.path !== '/plan'}">Planning </NuxtLink>
       </div>
     </div>
-    <div class="flex gap-4 items-center">
+    <button class="lg:hidden h-10 w-10 flex p-1 justify-center items-center rounded-full outline-[#B4B8B9]/30 hover:bg-gray-400/50 ">
+      <Menu class="w-full h-full" />
+    </button>
+    <div class="hidden lg:flex gap-4 items-center">
       <button
         @click="
           useColorTheme($colorMode.preference == 'dark' ? 'light' : 'dark')
@@ -81,15 +84,15 @@
                   isOpen,
               }"
             >
-              {{ getReports.length }}
+              {{ reportStore.reports.length }}
             </div>
           </button>
         </PopoverTrigger>
         <PopoverContent
-          class="w-72 dark:bg-[#313234] border-2 border-[#B4B8B9]/30 rounded-2xl p-6"
+          class="w-96 dark:bg-[#313234] border-2 border-[#B4B8B9]/30 rounded-2xl p-6"
         >
           <div
-            v-for="i in getReports"
+            v-for="i in reportStore.reports"
             :key="i.id"
             class="grid grid-cols-4 gap-2 text-sm lg:text-md"
           >
@@ -99,8 +102,8 @@
             </p>
             <p
               v-bind:class="{
-                'text-green-500': i.transaction_type,
-                'text-red-500': !i.transaction_type,
+                'text-green-500 truncate': i.transaction_type,
+                'text-red-500 truncate': !i.transaction_type,
               }"
             >
               {{ useFormatCurrency(i.transaction_amount) }}
@@ -117,7 +120,7 @@
             <img
               v-bind:src="getSingleUser.image"
               alt="logo"
-              width="40"
+              width="50"
               class="filter drop-shadow-md rounded-full"
             />
             <div
@@ -142,21 +145,23 @@
 </template>
 
 <script lang="ts" setup>
-import { LogOut } from "lucide-vue-next";
+import { LogOut, Menu } from "lucide-vue-next";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
+//create route for conditional render, setup store and create getter and computed data
 const route = useRoute();
 const userStore = useUserStore();
 const reportStore = useMyReportsStore();
 const getSingleUser = userStore.filteredSingleUser;
-const getReports = reportStore.reports;
 const isOpen = computed(() => reportStore.isOpen);
 
+//open notif
 const setOpenNotification = () => {
   reportStore.setOpen(true);
 };
 
+//logout account
 const logout = async () => {
   await userStore.logoutUser();
   navigateTo("/auth");
