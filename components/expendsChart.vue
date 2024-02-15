@@ -1,8 +1,13 @@
 <template>
+  <div class="w-full flex justify-end pr-[30px] -mt-[65px]">
+    <button @click="refresh" class="rounded-lg w-8 h-8 flex justify-center items-center bg-gray-400/60 hover:bg-gray-400/30">
+      <RefreshCw />
+    </button>
+  </div>
   <div id="chart2">
     <ClientOnly>
       <apexchart
-        :key="series"
+        :key="isRefresh"
         height="250"
         width="100%"
         :options="options"
@@ -12,12 +17,13 @@
   </div>
 </template>
 <script setup lang="ts">
+import { RefreshCw } from 'lucide-vue-next';
 import type { Reports } from '~/utils/types/report.types';
 
 
 // setup stores
 const reportStore = useMyReportsStore();
-
+const isRefresh = ref(0)
 //create computed data for chart to get the amount of expends
 const expendsReports = computed(() => {
   return reportStore.reports.filter((report: Reports) => report.transaction_type === false).map(report => report.transaction_amount);
@@ -30,6 +36,9 @@ const dateReports = computed(() => {
 const sortedDateReports = computed(() => {
   return dateReports.value.sort((a: Date, b: Date) => new Date(a).getTime() - new Date(b).getTime());
 });
+const refresh = () => {
+  isRefresh.value += 1
+}
 
 // create chart options
 const options = ref({
