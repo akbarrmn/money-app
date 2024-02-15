@@ -3,6 +3,6 @@ export default defineNuxtRouteMiddleware(async () => {
     
     // If theres data user navigate to home
     if (Object.keys(userStore.filteredSingleUser).length > 0) {
-        return await navigateTo("/");
+        return await navigateTo('/');
     }
 })
